@@ -1,0 +1,8 @@
+.env
+.env.*
+!.env.example
+.aws/
+*.pem
+*.key
+*credentials*.csv
+secrets/
