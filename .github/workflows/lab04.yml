@@ -1,0 +1,32 @@
+name: Lab 04 - Multi-Runner Example
+
+on:
+  workflow_dispatch:
+
+jobs:
+  linux:
+    name: Linux system information
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display Linux details
+        run: |
+          echo "Kernel information"
+          uname -a
+          echo "Operating system release"
+          cat /etc/os-release
+          echo "Disk usage"
+          df -h
+          echo "Memory information"
+          free -h
+
+  windows:
+    name: Windows system information
+    runs-on: windows-latest
+    steps:
+      - name: Display Windows details
+        shell: pwsh
+        run: |
+          Get-CimInstance Win32_OperatingSystem |
+            Select-Object LastBootUpTime
+          Get-Date
+          (Get-Date) - (Get-CimInstance Win32_OperatingSystem).LastBootUpTime
