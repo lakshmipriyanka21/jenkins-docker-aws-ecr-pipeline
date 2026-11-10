@@ -1,0 +1,28 @@
+name: Lab 01 - Basic Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  hello:
+    name: Welcome and runner details
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print welcome message
+        run: echo "Welcome to GitHub Actions"
+
+      - name: Display runner information
+        run: |
+          echo "Runner OS: ${{ runner.os }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Workflow: ${{ github.workflow }}"
+
+      - name: Check installed tools
+        run: |
+          git --version
+          python3 --version
+          docker --version
