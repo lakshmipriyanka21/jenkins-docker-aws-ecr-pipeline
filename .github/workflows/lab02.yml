@@ -1,0 +1,34 @@
+name: Lab 02 - Advanced Triggers
+
+on:
+  push:
+    branches:
+      - prod
+    paths:
+      - '.github/workflows/lab02.yml'
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Select the target environment'
+        required: true
+        type: choice
+        options:
+          - dev
+          - test
+          - prod
+
+jobs:
+  show-event:
+    name: Display trigger and selected environment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show event details
+        run: |
+          echo "Triggered by: ${{ github.event_name }}"
+          echo "Selected environment: ${{ inputs.environment }}"
