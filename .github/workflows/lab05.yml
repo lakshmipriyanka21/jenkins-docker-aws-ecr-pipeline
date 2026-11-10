@@ -1,0 +1,26 @@
+name: Lab 05 - Job Dependencies and Outputs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Generate build version
+    runs-on: ubuntu-latest
+
+    outputs:
+      version: ${{ steps.generate_version.outputs.version }}
+
+    steps:
+      - name: Generate build version
+        id: generate_version
+        run: echo "version=1.0.${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+
+  test:
+    name: Read build version
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Display version for testing
+        run: echo "Testing build version ${{ needs.build.outputs.version }}"
